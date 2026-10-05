@@ -6,12 +6,13 @@ sigue siendo un repo independiente, con su historial, su despliegue y su `CLAUDE
 
 | Carpeta | Qué es | Estado |
 |---|---|---|
-| `market-hub-landing/` | **El portal Market Hub.** Login con Google, cartera y favoritos del usuario, dashboard. Enlaza a las otras dos herramientas desde cada acción. FastAPI (`src/markethub/`) + Astro (`site/`), Firestore | En desarrollo |
-| `fundamentals-lab/` | **Fundamentals Lab.** Fundamentales, valoración, múltiplos a futuro, técnico, comparador y lectura con IA de cualquier empresa de EE. UU. FastAPI (`src/fundamentals/`) + Astro | Sin desplegar |
-| `decision-signal-lab/` | **Earnings Radar** (https://earningsradar.app/). Lee el texto de los comunicados de resultados. El estudio de predicción está cerrado como resultado nulo. FastAPI (`src/decisionsignal/`) + Astro | Desplegado |
+| `market-hub-landing/` | **El portal Market Hub** (https://themarkethub.app). Portal público con mercados (datos reales de FMP), noticias (de ejemplo) y fichas de valor; área privada "My Hub" con login de Google, cartera y dashboard. El login se comparte con las herramientas de los subdominios. FastAPI (`src/markethub/`) + Astro (`site/`), Firestore | Desplegado (Cloud Run `market-hub`) |
+| `fundamentals-lab/` | **Fundamentals Lab** (https://fundamentals.themarkethub.app, requiere login de Market Hub). Fundamentales, valoración, múltiplos a futuro, técnico, comparador y lectura con IA de cualquier empresa de EE. UU. FastAPI (`src/fundamentals/`) + Astro | Desplegado (Cloud Run `fundamentals-lab`) |
+| `decision-signal-lab/` | **Earnings Radar**. Lee el texto de los comunicados de resultados. Dos despliegues del mismo código: https://earningsradar.app/ (público, `make deploy`) y https://radar.themarkethub.app (con login de Market Hub, `make deploy-hub`). El estudio de predicción está cerrado como resultado nulo. FastAPI (`src/decisionsignal/`) + Astro | Desplegado (Cloud Run `earnings-radar` y `earnings-radar-hub`) |
 
-Los tres comparten stack y estilo visual (Python 3.12 con `uv`, web Astro, un contenedor en Cloud
-Run, todo lanzado a mano desde el `Makefile`) porque el plan es unificarlos bajo una marca.
+Los tres comparten stack y estilo visual (Python 3.12 con `uv`, web Astro con el tema oscuro de
+Market Hub, un contenedor en Cloud Run, todo lanzado a mano desde el `Makefile`), bajo la marca
+Market Hub y el dominio `themarkethub.app` (DNS en Cloudflare, mapeos de dominio de Cloud Run).
 
 ## Cómo trabajar aquí
 
