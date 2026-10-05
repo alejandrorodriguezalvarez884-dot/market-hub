@@ -1,0 +1,12 @@
+[submodule "market-hub-landing"]
+	path = market-hub-landing
+	url = https://github.com/alejandrorodriguezalvarez884-dot/market-hub-landing.git
+	branch = main
+[submodule "fundamentals-lab"]
+	path = fundamentals-lab
+	url = https://github.com/alejandrorodriguezalvarez884-dot/fundamentals-lab.git
+	branch = main
+[submodule "decision-signal-lab"]
+	path = decision-signal-lab
+	url = https://github.com/alejandrorodriguezalvarez884-dot/decision-signal-lab.git
+	branch = main

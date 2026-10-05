@@ -1,26 +1,48 @@
-# Instrucciones para agentes
+# Instrucciones para agentes (workspace)
 
-Lee primero [docs/HANDOFF.md](docs/HANDOFF.md): estado, pendientes y siguientes pasos.
+Este repo (`market-hub`) no tiene código propio: junta como submódulos de git los tres repos del portal de
+herramientas de IA para inversión, para trabajar sobre ellos desde una sola sesión. Cada uno
+sigue siendo un repo independiente, con su historial, su despliegue y su `CLAUDE.md`.
 
-Reglas que no se negocian:
+| Carpeta | Qué es | Estado |
+|---|---|---|
+| `market-hub-landing/` | **El portal Market Hub.** Login con Google, cartera y favoritos del usuario, dashboard. Enlaza a las otras dos herramientas desde cada acción. FastAPI (`src/markethub/`) + Astro (`site/`), Firestore | En desarrollo |
+| `fundamentals-lab/` | **Fundamentals Lab.** Fundamentales, valoración, múltiplos a futuro, técnico, comparador y lectura con IA de cualquier empresa de EE. UU. FastAPI (`src/fundamentals/`) + Astro | Sin desplegar |
+| `decision-signal-lab/` | **Earnings Radar** (https://earningsradar.app/). Lee el texto de los comunicados de resultados. El estudio de predicción está cerrado como resultado nulo. FastAPI (`src/decisionsignal/`) + Astro | Desplegado |
+
+Los tres comparten stack y estilo visual (Python 3.12 con `uv`, web Astro, un contenedor en Cloud
+Run, todo lanzado a mano desde el `Makefile`) porque el plan es unificarlos bajo una marca.
+
+## Cómo trabajar aquí
+
+- **Antes de tocar un repo, lee su `CLAUDE.md` y su `docs/HANDOFF.md`.** Sus reglas mandan
+  dentro de su carpeta. Las de abajo son las comunes, no las sustituyen.
+- **Cada cambio se hace, se commitea y se sube dentro del submódulo**, en su propio repo
+  (`git -C fundamentals-lab …` o con `cd`), nunca en la raíz de este repo. Comandos como `make test` se lanzan desde la
+  carpeta de cada repo.
+- Si la tarea cruza repos (por ejemplo, un enlace del portal a una herramienta), se hace un
+  commit en cada repo afectado y se dice en cuáles.
+- **Este repo solo guarda punteros a commits.** `scripts/sync.sh` (que se lanza solo al abrir una
+  sesión) deja cada submódulo en la punta de `main`. Mover los punteros aquí es opcional: si se
+  hace, es un commit aparte ("Bump submodules") y nunca sustituye al push en el repo hijo.
+- Nada de código de producto en la raíz de este repo. Hasta el 2026-10-05 este repo era el portal;
+  ese código y su historial están ahora en `market-hub-landing`.
+
+## Reglas comunes que no se negocian
+
 - **Nada de trading.** No se escribe código que envíe órdenes ni que se conecte a un broker, y no
-  se usa ningún conector de broker (IBKR u otro), ni siquiera para importar posiciones o precios.
-- **Describir, no recomendar.** El dashboard muestra valores, ganancias frente al coste del propio
-  usuario y rentabilidades pasadas. Nada de "compra", "vende", alertas de oportunidad ni
-  predicciones.
-- **Los datos del usuario son suyos.** Solo se guarda lo que la web dice en `/privacy/`. El
-  contenido de las carteras nunca va a los logs. Cada usuario solo lee y escribe su documento
-  (la clave es el `sub` de Google que sale de la sesión, nunca un parámetro de la petición).
-  Borrar la cuenta borra el documento entero. Cualquier dato nuevo que se guarde se añade antes a
-  la página de privacidad y a la de cuenta.
-- **El login se verifica en el servidor.** Nunca se confía en un email o un id que mande el
-  navegador; solo en el ID token verificado y en la cookie firmada. Las escrituras pasan el
-  control de `Origin`.
-- **Claves solo en `.env` o en el entorno.** Nunca en el repo, en logs ni en commits.
-- **Nada programado y nada en GitHub Actions.** Todo se lanza a mano desde el `Makefile`.
+  se usa ningún conector de broker (IBKR u otro), ni siquiera para descargar precios o importar
+  posiciones.
+- **Describir, no recomendar.** Ninguna web dice comprar, vender o mantener, ni da predicciones,
+  precios objetivo o alertas de oportunidad.
+- **Los servicios públicos gastan con las claves del usuario.** No se suben ni se quitan topes de
+  gasto ni límites por IP sin preguntarle, y antes de gastar en una API se le pide permiso.
+- **Claves solo en `.env` o en el entorno.** Nunca en ningún repo, en logs ni en commits.
+- **Nada programado y nada en GitHub Actions.** Todo se lanza a mano desde el `Makefile` de cada repo.
+- **Los resultados nulos se reportan tal cual.**
 
-Convenciones:
-- Hablar con el usuario en español. Código, comentarios y textos de la web en inglés.
-- Python 3.12 con `uv`. Tests con `make test`; web con `make check`.
-- Mismo stack y estilo visual que `fundamentals-lab` y `decision-signal-lab`, para unificarlos.
-- Al terminar una tarea relevante, actualizar "Dónde estamos" en `docs/HANDOFF.md`.
+## Convenciones
+
+- Hablar con el usuario en español. Código y comentarios en inglés.
+- Al terminar una tarea relevante, actualizar "Dónde estamos" en el `docs/HANDOFF.md` del repo que
+  se tocó.

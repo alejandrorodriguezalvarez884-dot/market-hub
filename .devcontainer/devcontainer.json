@@ -1,0 +1,34 @@
+{
+  "name": "market-hub",
+  "image": "mcr.microsoft.com/devcontainers/python:3.12",
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "lts"
+    }
+  },
+  "postCreateCommand": "pipx install uv && scripts/sync.sh",
+  "customizations": {
+    "codespaces": {
+      "repositories": {
+        "alejandrorodriguezalvarez884-dot/market-hub-landing": {
+          "permissions": {
+            "contents": "write",
+            "pull_requests": "write"
+          }
+        },
+        "alejandrorodriguezalvarez884-dot/fundamentals-lab": {
+          "permissions": {
+            "contents": "write",
+            "pull_requests": "write"
+          }
+        },
+        "alejandrorodriguezalvarez884-dot/decision-signal-lab": {
+          "permissions": {
+            "contents": "write",
+            "pull_requests": "write"
+          }
+        }
+      }
+    }
+  }
+}
