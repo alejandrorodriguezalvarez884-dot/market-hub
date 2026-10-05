@@ -27,7 +27,7 @@ Decisiones del usuario:
 | 17 tests en verde, sin red: tokens buenos y malos, aislamiento entre usuarios, CSRF, cookie `HttpOnly`/`Lax`, validación del portfolio, cálculos del dashboard | |
 | Web (`site/`): portada con login, bienvenida "¿tienes cartera?", editor de posiciones y favoritos, dashboard, herramientas, cuenta (ver, descargar y borrar datos) y privacidad. Revisada en Chromium a 1280 y 390 px con Google y FMP simulados | Revisarla con el botón real de Google |
 | `Makefile`, `Dockerfile`, `scripts/deploy-cloudrun.sh` (crea Firestore en europe-west1, secretos, despliegue) | Crear el cliente OAuth y desplegar |
-| | Subir a GitHub: crear el repo `market-hub` (la integración no puede crear repos) |
+| Repo en GitHub: `alejandrorodriguezalvarez884-dot/market-hub`, creado por el usuario el 2026-10-05; código en `main` | |
 | | La herramienta Fundamentals Lab no tiene URL todavía: el dashboard la muestra como "Coming soon" hasta que se ponga `FUNDAMENTALS_LAB_URL` |
 
 ## Cómo está hecho
@@ -52,12 +52,11 @@ Decisiones del usuario:
 
 ## Siguientes pasos, en orden
 
-1. Crear el repo `market-hub` en GitHub y subir el código.
-2. Crear el cliente OAuth (Google Auth Platform → Clients → Web application) en el proyecto
+1. Crear el cliente OAuth (Google Auth Platform → Clients → Web application) en el proyecto
    `arctic-robot-474306-g3`, con los orígenes de desarrollo; poner `GOOGLE_CLIENT_ID` y un
    `SESSION_SECRET` en `.env`.
-3. `FMP_API_KEY` y `SEC_USER_AGENT` en `.env`; `make serve` y probar el flujo completo.
-4. `make deploy`, añadir la URL de Cloud Run a los orígenes del cliente OAuth y, si el usuario
+2. `FMP_API_KEY` y `SEC_USER_AGENT` en `.env`; `make serve` y probar el flujo completo.
+3. `make deploy`, añadir la URL de Cloud Run a los orígenes del cliente OAuth y, si el usuario
    quiere, un dominio. La pantalla de consentimiento de OAuth tiene que pasar a "In production"
    para que entren usuarios fuera de la lista de prueba.
-5. Desplegar Fundamentals Lab y poner su URL en `FUNDAMENTALS_LAB_URL`.
+4. Desplegar Fundamentals Lab y poner su URL en `FUNDAMENTALS_LAB_URL`.
