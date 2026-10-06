@@ -6,13 +6,19 @@ sigue siendo un repo independiente, con su historial, su despliegue y su `CLAUDE
 
 | Carpeta | Qué es | Estado |
 |---|---|---|
-| `market-hub-landing/` | **El portal Market Hub** (https://themarkethub.app). Portal público con mercados (datos reales de FMP), noticias (de ejemplo) y fichas de valor; área privada "My Hub" con login de Google, cartera y dashboard. El login se comparte con las herramientas de los subdominios. FastAPI (`src/markethub/`) + Astro (`site/`), Firestore | Desplegado (Cloud Run `market-hub`) |
+| `market-hub-landing/` | **El portal Market Hub** (https://themarkethub.app). Landing con vídeo, la pestaña Today (el mercado del día en una frase y en una misma regla), mercados y fichas de valor con datos reales de FMP; área privada "My Hub" con login de Google, cartera y dashboard. El login se comparte con las herramientas de los subdominios. FastAPI (`src/markethub/`) + Astro (`site/`), Firestore | Desplegado (Cloud Run `market-hub`) |
 | `fundamentals-lab/` | **Fundamentals Lab** (https://fundamentals.themarkethub.app, requiere login de Market Hub). Fundamentales, valoración, múltiplos a futuro, técnico, comparador y lectura con IA de cualquier empresa de EE. UU. FastAPI (`src/fundamentals/`) + Astro | Desplegado (Cloud Run `fundamentals-lab`) |
 | `decision-signal-lab/` | **Earnings Radar**. Lee el texto de los comunicados de resultados. Dos despliegues del mismo código: https://earningsradar.app/ (público, `make deploy`) y https://radar.themarkethub.app (con login de Market Hub, `make deploy-hub`). El estudio de predicción está cerrado como resultado nulo. FastAPI (`src/decisionsignal/`) + Astro | Desplegado (Cloud Run `earnings-radar` y `earnings-radar-hub`) |
 
 Los tres comparten stack y estilo visual (Python 3.12 con `uv`, web Astro con el tema oscuro de
 Market Hub, un contenedor en Cloud Run, todo lanzado a mano desde el `Makefile`), bajo la marca
 Market Hub y el dominio `themarkethub.app` (DNS en Cloudflare, mapeos de dominio de Cloud Run).
+
+Desde el 2026-10-05 las dos herramientas son secciones del portal: los tres sitios llevan la misma
+cabecera (`Today · Markets · Fundamentals · Earnings`), el mismo `site/src/styles/global.css` (se
+copia del de `market-hub-landing`; cada herramienta añade lo suyo al final) y las mismas pestañas
+de empresa (`Price · Fundamentals · Results release`). Un cambio de cabecera o de estilo base se
+hace en los tres. En `earningsradar.app` el radar conserva su cabecera propia.
 
 ## Cómo trabajar aquí
 
