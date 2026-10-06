@@ -1,0 +1,41 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "hub-sample",
+      "runtimeExecutable": "bash",
+      "runtimeArgs": [
+        "-c",
+        "cd market-hub-landing && MARKETHUB_SAMPLE_MARKETS=1 MARKETHUB_STATIC_DIR=site/dist uv run uvicorn markethub.api:create_app --factory --port 8080"
+      ],
+      "port": 8080
+    },
+    {
+      "name": "hub-live",
+      "runtimeExecutable": "bash",
+      "runtimeArgs": [
+        "-c",
+        "cd market-hub-landing && MARKETHUB_STATIC_DIR=site/dist uv run uvicorn markethub.api:create_app --factory --port 8081"
+      ],
+      "port": 8081
+    },
+    {
+      "name": "fundamentals-local",
+      "runtimeExecutable": "bash",
+      "runtimeArgs": [
+        "-c",
+        "cd fundamentals-lab && HUB_URL= FUNDAMENTALS_STATIC_DIR=site/dist uv run uvicorn fundamentals.api:create_app --factory --port 8082"
+      ],
+      "port": 8082
+    },
+    {
+      "name": "radar-local",
+      "runtimeExecutable": "bash",
+      "runtimeArgs": [
+        "-c",
+        "cd decision-signal-lab && HUB_URL= RADAR_STATIC_DIR=site/dist uv run uvicorn decisionsignal.api:create_app --factory --port 8083"
+      ],
+      "port": 8083
+    }
+  ]
+}
