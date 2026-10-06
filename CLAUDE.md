@@ -29,7 +29,7 @@ Market Hub y el dominio `themarkethub.app` (DNS en Cloudflare, mapeos de dominio
 Desde el 2026-10-05 las dos herramientas son secciones del portal: los tres sitios comparten el
 mismo `site/src/styles/global.css` (se copia del de `market-hub-landing`; cada herramienta añade
 lo suyo al final) y las mismas pestañas de empresa (`Price · Fundamentals · Results release`).
-Desde el 2026-10-06 la cabecera pública del portal es `Today · Markets · News` y las herramientas
+Desde el 2026-10-06 la cabecera pública del portal es `Today · Markets · News · Opinion · Media` y las herramientas
 solo se enlazan desde My Hub, el área privada. Las dos herramientas, que piden login, son
 secciones de My Hub: llevan su misma navegación lateral (`HubNav.astro` en cada una, copia de la
 de `App.astro` en `market-hub-landing`) y encima su barra propia. Un cambio de estilo base, o de la
