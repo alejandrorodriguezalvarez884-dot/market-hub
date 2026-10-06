@@ -15,6 +15,13 @@ su validador y la skill `update-opinion` que los escribe y los publica en el Fir
 No tiene servicio ni web propios: el portal los lee y guarda los comentarios. Es un submódulo
 más, y sus reglas (opinar sí, aconsejar no; los hechos son de las fuentes) están en su `CLAUDE.md`.
 
+Y `the-market-hub-media/`: el canal de YouTube de Market Hub. Cada vídeo es una carpeta (brief,
+guion, un dibujo por escena, miniatura) y se hace con tres skills, `analyze-idea`, `make-video` y
+`publish-video`, a partir de los temas que da el usuario. Tampoco tiene servicio ni web: el
+trabajo de pensar se hace en la sesión de Claude Code y el código solo comprueba, monta y sube a
+YouTube. Sus reglas (explicar sí, aconsejar no; publicar es decisión del usuario, vídeo a vídeo)
+están en su `CLAUDE.md`.
+
 Los tres servicios comparten stack y estilo visual (Python 3.12 con `uv`, web Astro con el tema oscuro de
 Market Hub, un contenedor en Cloud Run, todo lanzado a mano desde el `Makefile`), bajo la marca
 Market Hub y el dominio `themarkethub.app` (DNS en Cloudflare, mapeos de dominio de Cloud Run).
