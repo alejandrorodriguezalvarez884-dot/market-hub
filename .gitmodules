@@ -10,3 +10,7 @@
 	path = decision-signal-lab
 	url = https://github.com/alejandrorodriguezalvarez884-dot/decision-signal-lab.git
 	branch = main
+[submodule "market-hub-opinion"]
+	path = market-hub-opinion
+	url = https://github.com/alejandrorodriguezalvarez884-dot/market-hub-opinion.git
+	branch = main

@@ -1,6 +1,6 @@
 # Instrucciones para agentes (workspace)
 
-Este repo (`market-hub`) no tiene código propio: junta como submódulos de git los tres repos del portal de
+Este repo (`market-hub`) no tiene código propio: junta como submódulos de git los repos del portal de
 herramientas de IA para inversión, para trabajar sobre ellos desde una sola sesión. Cada uno
 sigue siendo un repo independiente, con su historial, su despliegue y su `CLAUDE.md`.
 
@@ -10,15 +10,27 @@ sigue siendo un repo independiente, con su historial, su despliegue y su `CLAUDE
 | `fundamentals-lab/` | **Fundamentals Lab** (https://fundamentals.themarkethub.app, requiere login de Market Hub). Fundamentales, valoración, múltiplos a futuro, técnico, comparador y lectura con IA de cualquier empresa de EE. UU. FastAPI (`src/fundamentals/`) + Astro | Desplegado (Cloud Run `fundamentals-lab`) |
 | `decision-signal-lab/` | **Earnings Radar**. Lee el texto de los comunicados de resultados. Dos despliegues del mismo código: https://earningsradar.app/ (público, `make deploy`) y https://radar.themarkethub.app (con login de Market Hub, `make deploy-hub`). El estudio de predicción está cerrado como resultado nulo. FastAPI (`src/decisionsignal/`) + Astro | Desplegado (Cloud Run `earnings-radar` y `earnings-radar-hub`) |
 
-Los tres comparten stack y estilo visual (Python 3.12 con `uv`, web Astro con el tema oscuro de
+Además está `market-hub-opinion/`: los artículos de opinión del portal (un Markdown por artículo),
+su validador y la skill `update-opinion` que los escribe y los publica en el Firestore del portal.
+No tiene servicio ni web propios: el portal los lee y guarda los comentarios. Es un submódulo
+más, y sus reglas (opinar sí, aconsejar no; los hechos son de las fuentes) están en su `CLAUDE.md`.
+
+Los tres servicios comparten stack y estilo visual (Python 3.12 con `uv`, web Astro con el tema oscuro de
 Market Hub, un contenedor en Cloud Run, todo lanzado a mano desde el `Makefile`), bajo la marca
 Market Hub y el dominio `themarkethub.app` (DNS en Cloudflare, mapeos de dominio de Cloud Run).
 
-Desde el 2026-10-05 las dos herramientas son secciones del portal: los tres sitios llevan la misma
-cabecera (`Today · Markets · Fundamentals · Earnings`), el mismo `site/src/styles/global.css` (se
-copia del de `market-hub-landing`; cada herramienta añade lo suyo al final) y las mismas pestañas
-de empresa (`Price · Fundamentals · Results release`). Un cambio de cabecera o de estilo base se
-hace en los tres. En `earningsradar.app` el radar conserva su cabecera propia.
+Desde el 2026-10-05 las dos herramientas son secciones del portal: los tres sitios comparten el
+mismo `site/src/styles/global.css` (se copia del de `market-hub-landing`; cada herramienta añade
+lo suyo al final) y las mismas pestañas de empresa (`Price · Fundamentals · Results release`).
+Desde el 2026-10-06 la cabecera pública del portal es `Today · Markets · News` y las herramientas
+solo se enlazan desde My Hub, el área privada. Las dos herramientas, que piden login, son
+secciones de My Hub: llevan su misma navegación lateral (`HubNav.astro` en cada una, copia de la
+de `App.astro` en `market-hub-landing`) y encima su barra propia. Un cambio de estilo base, o de la
+navegación de My Hub, se hace en los tres. En `earningsradar.app` el radar conserva su cabecera
+propia.
+
+Las noticias del portal se actualizan sin nada programado: una visita que las encuentra viejas
+pide el refresco (`market-hub-landing/docs/HANDOFF.md`).
 
 ## Cómo trabajar aquí
 
