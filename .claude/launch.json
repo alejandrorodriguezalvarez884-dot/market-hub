@@ -11,6 +11,15 @@
       "port": 8080
     },
     {
+      "name": "hub-sample-windows",
+      "runtimeExecutable": "C:\\Program Files\\Git\\bin\\bash.exe",
+      "runtimeArgs": [
+        "-c",
+        "export PATH=\"$HOME/.local/bin:$PATH\" UV_LINK_MODE=copy; cd market-hub-landing && MARKETHUB_SAMPLE_MARKETS=1 MARKETHUB_STATIC_DIR=site/dist uv run uvicorn markethub.api:create_app --factory --port 8080"
+      ],
+      "port": 8080
+    },
+    {
       "name": "hub-live",
       "runtimeExecutable": "bash",
       "runtimeArgs": [
