@@ -7,6 +7,8 @@ trabajar sobre ellos desde un solo sitio, sin fusionarlos:
 - [`fundamentals-lab`](https://github.com/alejandrorodriguezalvarez884-dot/fundamentals-lab): fundamentales, valoración y técnico.
 - [`decision-signal-lab`](https://github.com/alejandrorodriguezalvarez884-dot/decision-signal-lab): Earnings Radar.
 - [`market-hub-opinion`](https://github.com/alejandrorodriguezalvarez884-dot/market-hub-opinion): los artículos de opinión del portal y la skill que los escribe.
+- [`the-market-hub-media`](https://github.com/alejandrorodriguezalvarez884-dot/the-market-hub-media): el canal de YouTube.
+- [`market-hub-mobile`](https://github.com/alejandrorodriguezalvarez884-dot/market-hub-mobile): la app de móvil (iPhone y Android), que habla con la API del portal.
 
 El contexto común para agentes está en [`CLAUDE.md`](CLAUDE.md). Hasta el 2026-10-05 este repo
 era el código del portal; ese código, con su historial, está ahora en `market-hub-landing`.

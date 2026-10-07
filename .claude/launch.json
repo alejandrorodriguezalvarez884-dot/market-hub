@@ -54,6 +54,24 @@
         "cd decision-signal-lab && HUB_URL= RADAR_STATIC_DIR=site/dist uv run uvicorn decisionsignal.api:create_app --factory --port 8083"
       ],
       "port": 8083
+    },
+    {
+      "name": "mobile-api",
+      "runtimeExecutable": "bash",
+      "runtimeArgs": [
+        "-c",
+        "cd market-hub-landing && ANTHROPIC_API_KEY= MARKETHUB_SAMPLE_MARKETS=1 MARKETHUB_SAMPLE_NEWS=1 MARKETHUB_OPEN_REGISTRATION=1 MARKETHUB_INSECURE_COOKIES=1 MARKETHUB_ALLOWED_ORIGINS=http://localhost:8090 MARKETHUB_DATA_DIR=${TMPDIR:-/tmp}/market-hub-mobile-data uv run uvicorn markethub.api:create_app --factory --port 8000"
+      ],
+      "port": 8000
+    },
+    {
+      "name": "mobile-web",
+      "runtimeExecutable": "bash",
+      "runtimeArgs": [
+        "-c",
+        "cd market-hub-mobile && EXPO_PUBLIC_API_URL=http://localhost:8000 npx expo start --web --port 8090"
+      ],
+      "port": 8090
     }
   ]
 }

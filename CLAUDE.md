@@ -22,6 +22,13 @@ trabajo de pensar se hace en la sesión de Claude Code y el código solo comprue
 YouTube. Sus reglas (explicar sí, aconsejar no; publicar es decisión del usuario, vídeo a vídeo)
 están en su `CLAUDE.md`.
 
+Y `market-hub-mobile/`: la app de móvil de Market Hub para iPhone y Android (Expo, React Native),
+que lleva My Hub al teléfono. Tampoco tiene servicio propio: habla con la API del portal
+(`market-hub-landing`), con un token en vez de la cookie de sesión (`tokens.py` del portal). Un
+cambio en lo que responde esa API, o en los colores y formatos de la web del portal, se hace
+también en la app. Se compila con EAS a mano, y publicar en una tienda es decisión del usuario,
+versión a versión. Sus reglas están en su `CLAUDE.md`.
+
 Los tres servicios comparten stack y estilo visual (Python 3.12 con `uv`, web Astro con el tema oscuro de
 Market Hub, un contenedor en Cloud Run, todo lanzado a mano desde el `Makefile`), bajo la marca
 Market Hub y el dominio `themarkethub.app` (DNS en Cloudflare, mapeos de dominio de Cloud Run).

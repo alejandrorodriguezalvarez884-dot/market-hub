@@ -33,6 +33,12 @@
             "contents": "write",
             "pull_requests": "write"
           }
+        },
+        "alejandrorodriguezalvarez884-dot/market-hub-mobile": {
+          "permissions": {
+            "contents": "write",
+            "pull_requests": "write"
+          }
         }
       }
     }

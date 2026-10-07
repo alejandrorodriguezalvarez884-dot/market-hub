@@ -18,3 +18,7 @@
 	path = the-market-hub-media
 	url = https://github.com/alejandrorodriguezalvarez884-dot/the-market-hub-media.git
 	branch = main
+[submodule "market-hub-mobile"]
+	path = market-hub-mobile
+	url = https://github.com/alejandrorodriguezalvarez884-dot/market-hub-mobile.git
+	branch = main
