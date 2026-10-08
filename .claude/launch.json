@@ -72,6 +72,24 @@
         "cd market-hub-mobile && EXPO_PUBLIC_API_URL=http://localhost:8000 npx expo start --web --port 8090"
       ],
       "port": 8090
+    },
+    {
+      "name": "mobile-api-windows",
+      "runtimeExecutable": "C:\\Program Files\\Git\\bin\\bash.exe",
+      "runtimeArgs": [
+        "-c",
+        "export PATH=\"$HOME/.local/bin:$PATH\" UV_LINK_MODE=copy; cd market-hub-landing && ANTHROPIC_API_KEY= MARKETHUB_SAMPLE_MARKETS=1 MARKETHUB_SAMPLE_NEWS=1 MARKETHUB_OPEN_REGISTRATION=1 MARKETHUB_INSECURE_COOKIES=1 MARKETHUB_ALLOWED_ORIGINS=http://localhost:8090 MARKETHUB_DATA_DIR=${TMPDIR:-/tmp}/market-hub-mobile-data uv run uvicorn markethub.api:create_app --factory --port 8010"
+      ],
+      "port": 8010
+    },
+    {
+      "name": "mobile-web-windows",
+      "runtimeExecutable": "C:\\Program Files\\Git\\bin\\bash.exe",
+      "runtimeArgs": [
+        "-c",
+        "cd market-hub-mobile && EXPO_PUBLIC_API_URL=http://localhost:8010 npx expo start --web --port 8090"
+      ],
+      "port": 8090
     }
   ]
 }
