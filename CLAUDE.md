@@ -8,6 +8,7 @@ sigue siendo un repo independiente, con su historial, su despliegue y su `CLAUDE
 |---|---|---|
 | `market-hub-landing/` | **El portal Market Hub** (https://themarkethub.app). Landing con vídeo, la pestaña Today (el mercado del día en una frase y en una misma regla), mercados y fichas de valor con datos de Yahoo Finance y gráficos de TradingView; área privada "My Hub" con login de Google o con cuenta propia (email y contraseña), cartera y dashboard. El login se comparte con las herramientas de los subdominios. FastAPI (`src/markethub/`) + Astro (`site/`), Firestore | Desplegado (Cloud Run `market-hub`) |
 | `fundamentals-lab/` | **Fundamentals Lab** (https://fundamentals.themarkethub.app, requiere login de Market Hub). Fundamentales, valoración, múltiplos a futuro, técnico, comparador y lectura con IA de cualquier empresa de EE. UU. FastAPI (`src/fundamentals/`) + Astro | Desplegado (Cloud Run `fundamentals-lab`) |
+| `market-hub-playground/` | **PlayGround** (https://playground.themarkethub.app, requiere login de Market Hub). Un tablero de gráficos y tablas de mercado que el usuario compone pidiéndolo por chat: Claude elige vistas y tickers de un catálogo cerrado y el código pone todas las cifras (Yahoo Finance). No guarda nada y no lee la cartera ni la watchlist del portal. Sin tope de gasto propio, por decisión del usuario. FastAPI (`src/playground/`) + Astro | Desplegado (Cloud Run `market-hub-playground`) |
 | `decision-signal-lab/` | **Earnings Radar**. Lee el texto de los comunicados de resultados. Dos despliegues del mismo código: https://earningsradar.app/ (público, `make deploy`) y https://radar.themarkethub.app (con login de Market Hub, `make deploy-hub`). El estudio de predicción está cerrado como resultado nulo. FastAPI (`src/decisionsignal/`) + Astro | Desplegado (Cloud Run `earnings-radar` y `earnings-radar-hub`) |
 
 Además está `market-hub-opinion/`: los artículos de opinión del portal (un Markdown por artículo),
@@ -40,7 +41,8 @@ Desde el 2026-10-06 la cabecera pública del portal es `Today · Markets · News
 solo se enlazan desde My Hub, el área privada. Las dos herramientas, que piden login, son
 secciones de My Hub: llevan su misma navegación lateral (`HubNav.astro` en cada una, copia de la
 de `App.astro` en `market-hub-landing`) y encima su barra propia. Un cambio de estilo base, o de la
-navegación de My Hub, se hace en los tres. En `earningsradar.app` el radar conserva su cabecera
+navegación de My Hub, se hace en los tres, y también en `market-hub-playground` (desde el
+2026-10-08), que lleva su copia de `global.css` y de `HubNav.astro`. En `earningsradar.app` el radar conserva su cabecera
 propia.
 
 Las noticias del portal se actualizan sin nada programado: una visita que las encuentra viejas
