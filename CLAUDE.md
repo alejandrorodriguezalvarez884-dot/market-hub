@@ -49,6 +49,17 @@ propia.
 Las noticias del portal se actualizan sin nada programado: una visita que las encuentra viejas
 pide el refresco (`market-hub-landing/docs/HANDOFF.md`).
 
+## El mantenimiento diario
+
+Cada día a las 08:00 la app de Claude del usuario lanza la tarea programada
+`market-hub-maintenance`, que sigue la skill [`maintenance`](.claude/skills/maintenance/SKILL.md):
+comprueba que las webs están bien (`scripts/healthcheck.py`, que solo lee), escribe y publica
+entre uno y cinco artículos de opinión con la skill `update-opinion`, y deja un informe al
+usuario. Corre sola, así que no despliega, no toca el código de los productos, no gasta en las
+claves del usuario y no envía nada a nadie: encuentra y cuenta. Una tarea nueva de mantenimiento
+es un archivo más en `.claude/skills/maintenance/tasks/` y su fila en la tabla de la skill; la
+tarea programada no se toca. También se lanza a mano (`/maintenance`).
+
 ## Cómo trabajar aquí
 
 - **Antes de tocar un repo, lee su `CLAUDE.md` y su `docs/HANDOFF.md`.** Sus reglas mandan
@@ -61,7 +72,8 @@ pide el refresco (`market-hub-landing/docs/HANDOFF.md`).
 - **Este repo solo guarda punteros a commits.** `scripts/sync.sh` (que se lanza solo al abrir una
   sesión) deja cada submódulo en la punta de `main`. Mover los punteros aquí es opcional: si se
   hace, es un commit aparte ("Bump submodules") y nunca sustituye al push en el repo hijo.
-- Nada de código de producto en la raíz de este repo. Hasta el 2026-10-05 este repo era el portal;
+- Nada de código de producto en la raíz de este repo (`scripts/` y la skill de mantenimiento son
+  de operación, no de producto). Hasta el 2026-10-05 este repo era el portal;
   ese código y su historial están ahora en `market-hub-landing`.
 
 ## Reglas comunes que no se negocian
@@ -75,6 +87,9 @@ pide el refresco (`market-hub-landing/docs/HANDOFF.md`).
   gasto ni límites por IP sin preguntarle, y antes de gastar en una API se le pide permiso.
 - **Claves solo en `.env` o en el entorno.** Nunca en ningún repo, en logs ni en commits.
 - **Nada programado y nada en GitHub Actions.** Todo se lanza a mano desde el `Makefile` de cada repo.
+  La única excepción es el mantenimiento diario (abajo), que el usuario pidió el 2026-10-13: una
+  tarea programada de la app de Claude en su Mac, no un servicio ni un cron en la nube. Otra
+  cosa programada se le pregunta antes.
 - **Los resultados nulos se reportan tal cual.**
 
 ## Convenciones
