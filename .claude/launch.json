@@ -60,7 +60,7 @@
       "runtimeExecutable": "bash",
       "runtimeArgs": [
         "-c",
-        "cd market-hub-landing && ANTHROPIC_API_KEY= MARKETHUB_SAMPLE_MARKETS=1 MARKETHUB_SAMPLE_NEWS=1 MARKETHUB_OPEN_REGISTRATION=1 MARKETHUB_INSECURE_COOKIES=1 MARKETHUB_ALLOWED_ORIGINS=http://localhost:8090 MARKETHUB_DATA_DIR=${TMPDIR:-/tmp}/market-hub-mobile-data uv run uvicorn markethub.api:create_app --factory --port 8000"
+        "cd market-hub-landing && ANTHROPIC_API_KEY= SESSION_SECRET=a-secret-for-this-machine-only-0000000000 MARKETHUB_SAMPLE_MARKETS=1 MARKETHUB_SAMPLE_NEWS=1 MARKETHUB_OPEN_REGISTRATION=1 MARKETHUB_INSECURE_COOKIES=1 MARKETHUB_ALLOWED_ORIGINS=http://localhost:8090 FUNDAMENTALS_LAB_URL=http://localhost:8082 MARKETHUB_DATA_DIR=${TMPDIR:-/tmp}/market-hub-mobile-data uv run uvicorn markethub.api:create_app --factory --port 8000"
       ],
       "port": 8000
     },
@@ -90,6 +90,51 @@
         "cd market-hub-mobile && EXPO_PUBLIC_API_URL=http://localhost:8010 npx expo start --web --port 8090"
       ],
       "port": 8090
+    },
+    {
+      "name": "mobile-api-live",
+      "runtimeExecutable": "bash",
+      "runtimeArgs": [
+        "-c",
+        "cd market-hub-landing && ANTHROPIC_API_KEY= FMP_API_KEY= MARKET_DATA=yahoo SESSION_SECRET=a-secret-for-this-machine-only-0000000000 MARKETHUB_SAMPLE_NEWS=1 MARKETHUB_OPEN_REGISTRATION=1 MARKETHUB_INSECURE_COOKIES=1 MARKETHUB_DATA_DIR=${TMPDIR:-/tmp}/market-hub-mobile-data uv run uvicorn markethub.api:create_app --factory --port 8000"
+      ],
+      "port": 8000
+    },
+    {
+      "name": "hub-local",
+      "runtimeExecutable": "bash",
+      "runtimeArgs": [
+        "-c",
+        "cd market-hub-landing && ANTHROPIC_API_KEY= MARKETHUB_SAMPLE_MARKETS=1 MARKETHUB_SAMPLE_NEWS=1 MARKETHUB_OPEN_REGISTRATION=1 MARKETHUB_INSECURE_COOKIES=1 MARKETHUB_STATIC_DIR=site/dist MARKETHUB_DATA_DIR=${TMPDIR:-/tmp}/market-hub-mobile-data uv run uvicorn markethub.api:create_app --factory --port 8080"
+      ],
+      "port": 8080
+    },
+    {
+      "name": "mobile-tool",
+      "runtimeExecutable": "bash",
+      "runtimeArgs": [
+        "-c",
+        "cd fundamentals-lab && HUB_URL=http://localhost:8000 HUB_SESSION_SECRET=a-secret-for-this-machine-only-0000000000 FUNDAMENTALS_STATIC_DIR=site/dist uv run uvicorn fundamentals.api:create_app --factory --port 8082"
+      ],
+      "port": 8082
+    },
+    {
+      "name": "mobile-ios",
+      "runtimeExecutable": "bash",
+      "runtimeArgs": [
+        "-c",
+        "cd market-hub-mobile && EXPO_PUBLIC_API_URL=http://localhost:8000 npx expo start --ios --port 8091"
+      ],
+      "port": 8091
+    },
+    {
+      "name": "hub-demo",
+      "runtimeExecutable": "bash",
+      "runtimeArgs": [
+        "-c",
+        "cd market-hub-landing && ANTHROPIC_API_KEY= FMP_API_KEY= MARKET_DATA=yahoo MARKETHUB_SAMPLE_NEWS=1 MARKETHUB_OPEN_REGISTRATION=1 MARKETHUB_INSECURE_COOKIES=1 MARKETHUB_STATIC_DIR=site/dist MARKETHUB_DATA_DIR=${TMPDIR:-/tmp}/market-hub-demo-data uv run uvicorn markethub.api:create_app --factory --port 8088"
+      ],
+      "port": 8088
     }
   ]
 }
