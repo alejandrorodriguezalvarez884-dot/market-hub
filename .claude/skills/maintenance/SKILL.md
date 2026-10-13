@@ -1,6 +1,6 @@
 ---
 name: maintenance
-description: The daily maintenance run of Market Hub - check that the live sites are well, write and publish the day's opinion articles, and report to the user. It is what the scheduled task "market-hub-maintenance" runs every morning with nobody watching; use it too when the user asks to run the maintenance by hand ("lanza el mantenimiento", "pasa la revisión diaria").
+description: The daily maintenance run of Market Hub - check that the live sites are well, write and publish the day's opinion articles, tell the portal's Media page what the account last posted on Instagram, and report to the user. It is what the scheduled task "market-hub-maintenance" runs every morning with nobody watching; use it too when the user asks to run the maintenance by hand ("lanza el mantenimiento", "pasa la revisión diaria").
 ---
 
 # The daily maintenance run
@@ -32,6 +32,7 @@ Do them in this order, each from its own file in `tasks/`. Read the file when yo
 |---|---|---|
 | 1 | The live sites: are they up, are they right, did they log errors | [tasks/health.md](tasks/health.md) |
 | 2 | The opinion section: one to five new articles, published | [tasks/opinion.md](tasks/opinion.md) |
+| 3 | The Media page: the account's latest posts on Instagram, told to the portal | [tasks/instagram.md](tasks/instagram.md) |
 
 A task that fails does not stop the ones after it, unless its file says so. Note what failed
 and go on.
@@ -49,7 +50,9 @@ Running alone changes what is allowed. Whatever a task's own file says, this run
   `market-hub-opinion`, and only what the opinion task says;
 - spends on an API key of the user's. Reading the sites as a visitor is free; asking the portal
   to refresh its news (`POST /api/public/news/refresh`) or calling a tool's model route is not;
-- sends anything to anyone: no email, no message, no post. The report is your last message;
+- sends anything to anyone: no email, no message, no post. The report is your last message.
+  Telling the portal what the account already posted on Instagram (task 3) reads Instagram and
+  posts nothing there;
 - publishes a reader's article, or a video. Those are the user's call, one by one;
 - touches a broker connector, for anything;
 - looks for another way in when a credential fails (`gcloud`, `git push`). Say what failed and
@@ -74,6 +77,9 @@ Your last message, in Spanish, short, and nothing after it. What is wrong goes f
 - [Título](https://themarkethub.app/opinion/article/?slug=<slug>): su tesis en una línea. Portada: <estilo>.
 - (lo que no se escribió y por qué; de lo que no estés seguro)
 - Artículos de lectores esperando revisión: <n>
+
+**Instagram en Media** — <n> posts en la página
+- (los nuevos desde ayer: qué son y su primera línea; lo que falló)
 
 **No se hizo** (solo si algo se saltó: qué y por qué)
 ```

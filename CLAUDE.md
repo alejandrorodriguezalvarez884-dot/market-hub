@@ -54,8 +54,9 @@ pide el refresco (`market-hub-landing/docs/HANDOFF.md`).
 Cada día a las 08:00 la app de Claude del usuario lanza la tarea programada
 `market-hub-maintenance`, que sigue la skill [`maintenance`](.claude/skills/maintenance/SKILL.md):
 comprueba que las webs están bien (`scripts/healthcheck.py`, que solo lee), escribe y publica
-entre uno y cinco artículos de opinión con la skill `update-opinion`, y deja un informe al
-usuario. Corre sola, así que no despliega, no toca el código de los productos, no gasta en las
+entre uno y cinco artículos de opinión con la skill `update-opinion`, le dice a la página Media
+del portal qué ha publicado la cuenta de Instagram (`make posts` en `the-market-hub-media`), y deja
+un informe al usuario. Corre sola, así que no despliega, no toca el código de los productos, no gasta en las
 claves del usuario y no envía nada a nadie: encuentra y cuenta. Una tarea nueva de mantenimiento
 es un archivo más en `.claude/skills/maintenance/tasks/` y su fila en la tabla de la skill; la
 tarea programada no se toca. También se lanza a mano (`/maintenance`).

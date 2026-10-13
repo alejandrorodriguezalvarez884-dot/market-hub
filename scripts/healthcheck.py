@@ -188,6 +188,13 @@ def portal() -> None:
             check("opinion cover", f"{api}/public/opinion/cover?slug={slug}&v={version}", kind="image/jpeg",
                   test=lambda body: None if len(body) > 10_000 else "the picture is too small to be one")
 
+    # What the account last posted on Instagram, for the Media page: the-market-hub-media leaves it there.
+    posted = check("instagram posts", f"{api}/public/instagram", test=lambda d: None if d.get("posts") else "warn: no posts")
+    if isinstance(posted, dict) and posted.get("posts"):
+        newest = posted["posts"][0]
+        check("instagram cover", f"{api}/public/instagram/cover?id={newest['id']}&v={newest['cover']['v']}", kind="image/jpeg",
+              test=lambda body: None if len(body) > 1_000 else "the picture is too small to be one")
+
 
 def tools() -> None:
     for name, base in (("fundamentals", FUNDAMENTALS), ("radar (hub)", RADAR_HUB),
