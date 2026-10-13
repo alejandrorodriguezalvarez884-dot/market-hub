@@ -18,6 +18,8 @@ git status --short && git branch --show-current
 ```
 
 - On a branch other than `main`: someone is working here. Do not write today; report it.
+- Behind its remote (`git fetch && git status -sb`): `git pull --ff-only`. If that fails, the
+  repo has diverged: do not write today; report it.
 - Uncommitted changes that are not yours: leave them exactly as they are. You may go on, and at
   the end you add and commit only the files you made, by name (never `git add -A` or `git add .`).
   If one of those changes is to a file `make check` or `make publish` reads (an article, a cover,
