@@ -1,6 +1,6 @@
 # Task 1: the live sites
 
-Find out whether the three sites are up and right, and whether they logged errors since
+Find out whether the sites are up and right, and whether they logged errors since
 yesterday. You only look. Nothing here fixes anything.
 
 ## 1. Run the check
@@ -10,9 +10,10 @@ python3 scripts/healthcheck.py --logs
 ```
 
 It reads, as a visitor with no session, the portal's pages and public API
-(https://themarkethub.app), the two tools behind the login (https://fundamentals.themarkethub.app,
-https://radar.themarkethub.app), the public radar (https://earningsradar.app) and their
-certificates; `--logs` adds the last 24 hours of errors and 5xx answers in the four Cloud Run
+(https://themarkethub.app), the tools behind its login (https://fundamentals.themarkethub.app,
+https://radar.themarkethub.app, https://playground.themarkethub.app,
+https://peers.themarkethub.app), the public radar (https://earningsradar.app) and their
+certificates; `--logs` adds the last 24 hours of errors and 5xx answers in their Cloud Run
 services, read with the user's `gcloud` session. One line per check: `ok`, `WARN` or `FAIL`.
 
 If the logs could not be read (no `gcloud` session), say so in the report: the rest of the check
@@ -38,11 +39,16 @@ A `FAIL` or a `WARN` is where the work starts, not the report. Before you write 
   an "aviso", not a "fallo". Say it was seen once.
 - Read the service's log around it:
   `gcloud logging read 'resource.type="cloud_run_revision" AND resource.labels.service_name="<service>" AND severity>=WARNING' --freshness=2h --limit=50 --format='value(timestamp,severity,textPayload)'`
-- Read the code that answers that route in its repo (`market-hub-landing/src/markethub/`,
-  `fundamentals-lab/src/fundamentals/`, `decision-signal-lab/src/decisionsignal/`) and the
-  repo's `docs/HANDOFF.md`, which often says what is known to be fragile.
+- Read the code that answers that route in its repo (the table in the workspace's `CLAUDE.md`
+  says which folder is which site; the API is under `src/` in each) and the repo's
+  `docs/HANDOFF.md`, which often says what is known to be fragile.
 - The services are `market-hub` (the portal), `fundamentals-lab`, `earnings-radar`
-  (earningsradar.app) and `earnings-radar-hub` (radar.themarkethub.app).
+  (earningsradar.app), `earnings-radar-hub` (radar.themarkethub.app), `market-hub-playground`
+  and `peer-map` (peers.themarkethub.app).
+
+A site added to the workspace gets its lines in `scripts/healthcheck.py` (its address, its
+service); if the workspace's `CLAUDE.md` lists a live site the check does not read, say so in the
+report.
 
 Then report each as: what is wrong, where (the address), since when if the log says, the likely
 cause, and what it would take to fix it. If you do not know the cause, say that and what you
