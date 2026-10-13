@@ -5,7 +5,12 @@
 set -uo pipefail
 cd "$(dirname "$0")/.."
 
-git submodule update --init --quiet
+# Only a submodule that is not there yet is cloned. One that is already checked out is never
+# moved back to the commit this repo recorded: that pointer is usually older than its branch, and
+# another session may be working in that folder.
+git submodule status | awk '/^-/ { print $2 }' | while read -r path; do
+  git submodule update --init --quiet -- "$path"
+done
 
 git config -f .gitmodules --get-regexp '\.path$' | while read -r _ path; do
   branch=$(git config -f .gitmodules --get "submodule.$path.branch" || echo main)
