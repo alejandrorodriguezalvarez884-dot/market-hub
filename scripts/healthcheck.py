@@ -29,6 +29,7 @@ FUNDAMENTALS = "https://fundamentals.themarkethub.app"
 RADAR_HUB = "https://radar.themarkethub.app"
 PLAYGROUND = "https://playground.themarkethub.app"
 PEERS = "https://peers.themarkethub.app"
+OPTIONS = "https://options.themarkethub.app"
 RADAR = "https://earningsradar.app"
 
 # The portal's pages a visitor opens. They are static: the page loads and then asks the API.
@@ -38,7 +39,7 @@ PAGES = ["/", "/today/", "/markets/", "/news/", "/news/article/", "/opinion/", "
 
 # The Cloud Run services behind the sites (the project has others, which are not ours to read).
 SERVICES = ["market-hub", "fundamentals-lab", "earnings-radar", "earnings-radar-hub",
-            "market-hub-playground", "peer-map"]
+            "market-hub-playground", "peer-map", "options-lab"]
 
 TIMEOUT = 30            # seconds for one request
 SLOW = 8.0              # an answer slower than this is a warning (a cold start takes a few seconds)
@@ -198,7 +199,7 @@ def portal() -> None:
 
 def tools() -> None:
     for name, base in (("fundamentals", FUNDAMENTALS), ("radar (hub)", RADAR_HUB),
-                       ("playground", PLAYGROUND), ("peer map", PEERS)):
+                       ("playground", PLAYGROUND), ("peer map", PEERS), ("options lab", OPTIONS)):
         check(f"{name} health", f"{base}/api/health", test=lambda d: None if d.get("ok") else "not ok")
         # Without a session the tool sends the visitor to the portal's sign-in.
         try:
@@ -217,7 +218,7 @@ def tools() -> None:
 
 
 def certificates() -> None:
-    for base in (PORTAL, FUNDAMENTALS, RADAR_HUB, PLAYGROUND, PEERS, RADAR):
+    for base in (PORTAL, FUNDAMENTALS, RADAR_HUB, PLAYGROUND, PEERS, OPTIONS, RADAR):
         host = urllib.parse.urlparse(base).hostname
         try:
             with socket.create_connection((host, 443), timeout=TIMEOUT) as raw:
