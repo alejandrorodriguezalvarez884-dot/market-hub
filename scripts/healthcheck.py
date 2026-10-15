@@ -33,7 +33,9 @@ OPTIONS = "https://options.themarkethub.app"
 RADAR = "https://earningsradar.app"
 
 # The portal's pages a visitor opens. They are static: the page loads and then asks the API.
-PAGES = ["/", "/today/", "/markets/", "/news/", "/news/article/", "/opinion/", "/opinion/article/",
+# An opinion article's page is not here: without a real slug it is a 404 on purpose, so it is
+# checked below with the newest article's slug.
+PAGES = ["/", "/today/", "/markets/", "/news/", "/news/article/", "/opinion/",
          "/opinion/submit/", "/media/", "/quote/?t=AAPL", "/signin/", "/dashboard/", "/portfolio/",
          "/watchlist/", "/community/", "/community/competitions/", "/tools/", "/privacy/", "/terms/"]
 
@@ -130,10 +132,13 @@ def hours_since(stamp: str) -> float:
     return (datetime.now(timezone.utc) - datetime.fromisoformat(stamp)).total_seconds() / 3600
 
 
+def whole_page(body) -> str | None:
+    return None if len(body) > 2000 and b"</html>" in body else "the page is cut short"
+
+
 def portal() -> None:
     for page in PAGES:
-        check(f"portal page {page}", PORTAL + page, kind="text/html",
-              test=lambda body: None if len(body) > 2000 and b"</html>" in body else "the page is cut short")
+        check(f"portal page {page}", PORTAL + page, kind="text/html", test=whole_page)
 
     api = PORTAL + "/api"
     check("portal health", f"{api}/health", test=lambda d: None if d.get("ok") else "not ok")
@@ -175,9 +180,12 @@ def portal() -> None:
               test=lambda d: None if d.get("title") or d.get("item") else "no item in it")
 
     cards = check("opinion", f"{api}/public/opinion", test=lambda d: None if d.get("articles") else "no articles")
-    if isinstance(cards, dict) and cards.get("articles"):
+    if not (isinstance(cards, dict) and cards.get("articles")):
+        say("WARN", "portal page /opinion/article/", "no article to open")
+    else:
         newest = cards["articles"][0]
         slug = urllib.parse.quote(newest["slug"])
+        check("portal page /opinion/article/", f"{PORTAL}/opinion/article/?slug={slug}", kind="text/html", test=whole_page)
         check("opinion article", f"{api}/public/opinion/item?slug={slug}",
               test=lambda d: None if d else "empty")
         check("opinion comments", f"{api}/public/opinion/comments?slug={slug}")
