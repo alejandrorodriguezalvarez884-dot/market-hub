@@ -30,6 +30,7 @@ RADAR_HUB = "https://radar.themarkethub.app"
 PLAYGROUND = "https://playground.themarkethub.app"
 PEERS = "https://peers.themarkethub.app"
 OPTIONS = "https://options.themarkethub.app"
+BOTS = "https://bots.themarkethub.app"
 RADAR = "https://earningsradar.app"
 
 # The portal's pages a visitor opens. They are static: the page loads and then asks the API.
@@ -41,7 +42,7 @@ PAGES = ["/", "/today/", "/markets/", "/news/", "/news/article/", "/opinion/",
 
 # The Cloud Run services behind the sites (the project has others, which are not ours to read).
 SERVICES = ["market-hub", "fundamentals-lab", "earnings-radar", "earnings-radar-hub",
-            "market-hub-playground", "peer-map", "options-lab"]
+            "market-hub-playground", "peer-map", "options-lab", "bot-league"]
 
 TIMEOUT = 30            # seconds for one request
 SLOW = 8.0              # an answer slower than this is a warning (a cold start takes a few seconds)
@@ -225,8 +226,33 @@ def tools() -> None:
           test=lambda body: None if len(body) > 2000 else "the page is cut short")
 
 
+def bot_league() -> None:
+    """Bot League has a public board, so it is read like the portal, not behind a sign-in wall.
+    Only GETs: the board's refresh is a POST that moves the bots' curves, and it is never called."""
+    check("bot league health", f"{BOTS}/api/health", test=lambda d: None if d.get("ok") else "not ok")
+    check("bot league page /", f"{BOTS}/", kind="text/html", test=whole_page)
+
+    def board(d):
+        if d.get("sample"):
+            return "it is serving sample figures"
+        if not isinstance(d.get("rows"), list):
+            return "no rows in it"
+        house = d.get("house") or []
+        return None if len(house) == 6 else f"{len(house)} house bots, expected 6"
+    shown = check("bot league board", f"{BOTS}/api/board", test=board)
+    if isinstance(shown, dict):
+        # Not a failure: the curves move when someone visits after a close, never on a schedule.
+        say("ok", "bot league board freshness",
+            f"as of {shown.get('as_of') or 'no close yet'}, stale {shown.get('stale')}, {len(shown.get('rows') or [])} members' bots")
+    check("bot league spec", f"{BOTS}/api/bot/spec",
+          test=lambda d: None if d.get("format") == "markethub-bot/1" else f"format {d.get('format')!r}")
+    # The portal handed the competition over: its old route says where it went.
+    check("portal bot spec moved", f"{PORTAL}/api/bot/spec", status=410,
+          test=lambda d: None if d.get("moved_to") == BOTS else f"moved_to {d.get('moved_to')!r}, expected {BOTS}")
+
+
 def certificates() -> None:
-    for base in (PORTAL, FUNDAMENTALS, RADAR_HUB, PLAYGROUND, PEERS, OPTIONS, RADAR):
+    for base in (PORTAL, FUNDAMENTALS, RADAR_HUB, PLAYGROUND, PEERS, OPTIONS, BOTS, RADAR):
         host = urllib.parse.urlparse(base).hostname
         try:
             with socket.create_connection((host, 443), timeout=TIMEOUT) as raw:
@@ -278,6 +304,7 @@ def logs() -> None:
 def main() -> int:
     portal()
     tools()
+    bot_league()
     certificates()
     if "--logs" in sys.argv:
         logs()
