@@ -90,9 +90,11 @@ tarea programada no se toca. También se lanza a mano (`/maintenance`).
   gasto ni límites por IP sin preguntarle, y antes de gastar en una API se le pide permiso.
 - **Claves solo en `.env` o en el entorno.** Nunca en ningún repo, en logs ni en commits.
 - **Nada programado y nada en GitHub Actions.** Todo se lanza a mano desde el `Makefile` de cada repo.
-  La única excepción es el mantenimiento diario (abajo), que el usuario pidió el 2026-10-13: una
-  tarea programada de la app de Claude en su Mac, no un servicio ni un cron en la nube. Otra
-  cosa programada se le pregunta antes.
+  Las únicas excepciones son el mantenimiento diario (abajo), que el usuario pidió el 2026-10-13, y
+  los posts automáticos de `the-market-hub-media` (su skill `autopost`: cinco posts al día en X,
+  sin enlace, y dos carruseles en Instagram, de lunes a viernes), que pidió el 2026-10-21: tareas
+  programadas de la app de Claude, no un servicio ni un cron en la nube. Otra cosa programada se
+  le pregunta antes.
 - **Los resultados nulos se reportan tal cual.**
 
 ## Convenciones
