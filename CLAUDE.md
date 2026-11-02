@@ -19,7 +19,10 @@ su validador y la skill `update-opinion` que los escribe y los publica en el Fir
 No tiene servicio ni web propios: el portal los lee y guarda los comentarios. Es un submódulo
 más, y sus reglas (opinar sí, aconsejar no; los hechos son de las fuentes) están en su `CLAUDE.md`.
 
-Y `the-market-hub-media/`: el canal de YouTube de Market Hub. Cada vídeo es una carpeta (brief,
+Y `the-market-hub-media/`: el canal de YouTube de Market Hub y, desde el 2026-11-02, los **reels
+de Instagram en español** (`the_market_hub_app`): dos diarios automáticos con la apertura y el
+cierre de Wall Street, y dos líneas a demanda, de reflexión y didácticos, que el usuario pide con
+un tema. Todo en `the-market-hub-media/docs/reels.md`. Cada vídeo es una carpeta (brief,
 guion, un dibujo por escena, miniatura) y se hace con tres skills, `analyze-idea`, `make-video` y
 `publish-video`, a partir de los temas que da el usuario. Tampoco tiene servicio ni web: el
 trabajo de pensar se hace en la sesión de Claude Code y el código solo comprueba, monta y sube a
@@ -90,11 +93,12 @@ tarea programada no se toca. También se lanza a mano (`/maintenance`).
   gasto ni límites por IP sin preguntarle, y antes de gastar en una API se le pide permiso.
 - **Claves solo en `.env` o en el entorno.** Nunca en ningún repo, en logs ni en commits.
 - **Nada programado y nada en GitHub Actions.** Todo se lanza a mano desde el `Makefile` de cada repo.
-  Las únicas excepciones son el mantenimiento diario (abajo), que el usuario pidió el 2026-10-13, y
+  Las únicas excepciones son el mantenimiento diario (abajo), que el usuario pidió el 2026-10-13;
   los posts automáticos de `the-market-hub-media` (su skill `autopost`: cinco posts al día en X,
-  sin enlace, y dos carruseles en Instagram, de lunes a viernes), que pidió el 2026-10-21: tareas
-  programadas de la app de Claude, no un servicio ni un cron en la nube. Otra cosa programada se
-  le pregunta antes.
+  sin enlace, de lunes a viernes), que pidió el 2026-10-21; y los reels diarios de Instagram con la
+  apertura y el cierre de Wall Street (skill `daily-reel`, que sustituyen a los carruseles de
+  `autopost`), que pidió el 2026-11-02 (`the-market-hub-media/docs/reels.md`): tareas programadas
+  de Claude, no un servicio propio. Otra cosa programada se le pregunta antes.
 - **Los resultados nulos se reportan tal cual.**
 
 ## Convenciones
