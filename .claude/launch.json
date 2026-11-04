@@ -2,6 +2,60 @@
   "version": "0.0.1",
   "configurations": [
     {
+      "name": "film-hub-windows",
+      "runtimeExecutable": "C:\\Program Files\\Git\\bin\\bash.exe",
+      "runtimeArgs": [
+        "-c",
+        "export PATH=\"$HOME/.local/bin:$PATH\" UV_LINK_MODE=copy; cd /c/dev/TechProjects/MarketHub/market-hub-landing && ANTHROPIC_API_KEY=\"$(gcloud secrets versions access latest --secret=ANTHROPIC_API_KEY)\" NEWS_TTL_SECONDS=999999999 MARKETHUB_OPEN_REGISTRATION=1 MARKETHUB_INSECURE_COOKIES=1 MARKETHUB_COOKIE_DOMAIN= MARKETHUB_DATA_DIR=${TMPDIR:-/tmp}/market-hub-demo-data MARKETHUB_STATIC_DIR=site/dist uv run uvicorn markethub.api:create_app --factory --port 8088"
+      ],
+      "port": 8088
+    },
+    {
+      "name": "film-fundamentals-windows",
+      "runtimeExecutable": "C:\\Program Files\\Git\\bin\\bash.exe",
+      "runtimeArgs": [
+        "-c",
+        "export PATH=\"$HOME/.local/bin:$PATH\" UV_LINK_MODE=copy; cd /c/dev/TechProjects/MarketHub/fundamentals-lab && HUB_URL=http://localhost:8088 HUB_SESSION_SECRET=\"$(grep ^SESSION_SECRET= ../market-hub-landing/.env | cut -d= -f2-)\" ANTHROPIC_API_KEY=\"$(gcloud secrets versions access latest --secret=ANTHROPIC_API_KEY)\" READING_DAILY_MAX_USD=0.30 READING_TOTAL_MAX_USD=0.40 FUNDAMENTALS_STATIC_DIR=site/dist uv run uvicorn fundamentals.api:create_app --factory --port 8094"
+      ],
+      "port": 8094
+    },
+    {
+      "name": "film-radar-windows",
+      "runtimeExecutable": "C:\\Program Files\\Git\\bin\\bash.exe",
+      "runtimeArgs": [
+        "-c",
+        "export PATH=\"$HOME/.local/bin:$PATH\" UV_LINK_MODE=copy; cd /c/dev/TechProjects/MarketHub/decision-signal-lab && HUB_URL=http://localhost:8088 HUB_SESSION_SECRET=\"$(grep ^SESSION_SECRET= ../market-hub-landing/.env | cut -d= -f2-)\" PERPLEXITY_API_KEY=\"$(gcloud secrets versions access latest --secret=earnings-radar-perplexity-api-key)\" RADAR_DAILY_MAX_USD=0.05 RADAR_TOTAL_MAX_USD=0.05 RADAR_STATIC_DIR=site/dist uv run uvicorn decisionsignal.api:create_app --factory --port 8093"
+      ],
+      "port": 8093
+    },
+    {
+      "name": "film-playground-windows",
+      "runtimeExecutable": "C:\\Program Files\\Git\\bin\\bash.exe",
+      "runtimeArgs": [
+        "-c",
+        "export PATH=\"$HOME/.local/bin:$PATH\" UV_LINK_MODE=copy; cd /c/dev/TechProjects/MarketHub/market-hub-playground && HUB_URL=http://localhost:8088 HUB_SESSION_SECRET=\"$(grep ^SESSION_SECRET= ../market-hub-landing/.env | cut -d= -f2-)\" ANTHROPIC_API_KEY=\"$(gcloud secrets versions access latest --secret=ANTHROPIC_API_KEY)\" PLAYGROUND_STATIC_DIR=site/dist uv run uvicorn playground.api:create_app --factory --port 8097"
+      ],
+      "port": 8097
+    },
+    {
+      "name": "film-options-windows",
+      "runtimeExecutable": "C:\\Program Files\\Git\\bin\\bash.exe",
+      "runtimeArgs": [
+        "-c",
+        "export PATH=\"$HOME/.local/bin:$PATH\" UV_LINK_MODE=copy; cd /c/dev/TechProjects/MarketHub/market-hub-options && HUB_URL=http://localhost:8088 HUB_SESSION_SECRET=\"$(grep ^SESSION_SECRET= ../market-hub-landing/.env | cut -d= -f2-)\" OPTIONSLAB_DATA_DIR=${TMPDIR:-/tmp}/options-demo-data OPTIONSLAB_STATIC_DIR=site/dist uv run uvicorn optionslab.api:create_app --factory --port 8096"
+      ],
+      "port": 8096
+    },
+    {
+      "name": "hub-news-windows",
+      "runtimeExecutable": "C:\\Program Files\\Git\\bin\\bash.exe",
+      "runtimeArgs": [
+        "-c",
+        "export PATH=\"$HOME/.local/bin:$PATH\" UV_LINK_MODE=copy; cd /c/dev/TechProjects/MarketHub/market-hub-landing && ANTHROPIC_API_KEY= FMP_API_KEY= NEWS_TTL_SECONDS=999999999 MARKETHUB_SAMPLE_MARKETS=1 MARKETHUB_INSECURE_COOKIES=1 MARKETHUB_DATA_DIR=${TMPDIR:-/tmp}/market-hub-news-data MARKETHUB_STATIC_DIR=site/dist uv run uvicorn markethub.api:create_app --factory --port 8092"
+      ],
+      "port": 8092
+    },
+    {
       "name": "hub-sample",
       "runtimeExecutable": "bash",
       "runtimeArgs": [
@@ -29,6 +83,51 @@
       "port": 8081
     },
     {
+      "name": "hub-demo-windows",
+      "runtimeExecutable": "C:\\Program Files\\Git\\bin\\bash.exe",
+      "runtimeArgs": [
+        "-c",
+        "export PATH=\"$HOME/.local/bin:$PATH\" UV_LINK_MODE=copy; cd /c/dev/TechProjects/MarketHub/market-hub-landing && ANTHROPIC_API_KEY= NEWS_TTL_SECONDS=999999999 MARKETHUB_OPEN_REGISTRATION=1 MARKETHUB_INSECURE_COOKIES=1 MARKETHUB_COOKIE_DOMAIN= MARKETHUB_ALLOWED_ORIGINS=http://localhost:8090,http://localhost:8088,http://127.0.0.1:8088 MARKETHUB_DATA_DIR=${TMPDIR:-/tmp}/market-hub-demo-data MARKETHUB_STATIC_DIR=site/dist uv run uvicorn markethub.api:create_app --factory --port 8088"
+      ],
+      "port": 8088
+    },
+    {
+      "name": "fundamentals-demo-windows",
+      "runtimeExecutable": "C:\\Program Files\\Git\\bin\\bash.exe",
+      "runtimeArgs": [
+        "-c",
+        "export PATH=\"$HOME/.local/bin:$PATH\" UV_LINK_MODE=copy; cd /c/dev/TechProjects/MarketHub/fundamentals-lab && HUB_URL=http://localhost:8088 HUB_SESSION_SECRET=\"$(grep ^SESSION_SECRET= ../market-hub-landing/.env | cut -d= -f2-)\" ANTHROPIC_API_KEY= FUNDAMENTALS_STATIC_DIR=site/dist uv run uvicorn fundamentals.api:create_app --factory --port 8094"
+      ],
+      "port": 8094
+    },
+    {
+      "name": "radar-demo-windows",
+      "runtimeExecutable": "C:\\Program Files\\Git\\bin\\bash.exe",
+      "runtimeArgs": [
+        "-c",
+        "export PATH=\"$HOME/.local/bin:$PATH\" UV_LINK_MODE=copy; cd /c/dev/TechProjects/MarketHub/decision-signal-lab && HUB_URL=http://localhost:8088 HUB_SESSION_SECRET=\"$(grep ^SESSION_SECRET= ../market-hub-landing/.env | cut -d= -f2-)\" PERPLEXITY_API_KEY= RADAR_STATIC_DIR=site/dist uv run uvicorn decisionsignal.api:create_app --factory --port 8093"
+      ],
+      "port": 8093
+    },
+    {
+      "name": "peers-demo-windows",
+      "runtimeExecutable": "C:\\Program Files\\Git\\bin\\bash.exe",
+      "runtimeArgs": [
+        "-c",
+        "export PATH=\"$HOME/.local/bin:$PATH\" UV_LINK_MODE=copy; cd /c/dev/TechProjects/MarketHub/market-hub-peers-map && HUB_URL=http://localhost:8088 HUB_SESSION_SECRET=\"$(grep ^SESSION_SECRET= ../market-hub-landing/.env | cut -d= -f2-)\" PEERMAP_STATIC_DIR=site/dist uv run uvicorn peermap.api:create_app --factory --port 8095"
+      ],
+      "port": 8095
+    },
+    {
+      "name": "playground-demo-windows",
+      "runtimeExecutable": "C:\\Program Files\\Git\\bin\\bash.exe",
+      "runtimeArgs": [
+        "-c",
+        "export PATH=\"$HOME/.local/bin:$PATH\" UV_LINK_MODE=copy; cd /c/dev/TechProjects/MarketHub/market-hub-playground && HUB_URL=http://localhost:8088 HUB_SESSION_SECRET=\"$(grep ^SESSION_SECRET= ../market-hub-landing/.env | cut -d= -f2-)\" ANTHROPIC_API_KEY= PLAYGROUND_SCRIPTED=1 PLAYGROUND_STATIC_DIR=site/dist uv run uvicorn playground.api:create_app --factory --port 8097"
+      ],
+      "port": 8097
+    },
+    {
       "name": "hub-live",
       "runtimeExecutable": "bash",
       "runtimeArgs": [
@@ -45,6 +144,60 @@
         "cd fundamentals-lab && HUB_URL= FUNDAMENTALS_STATIC_DIR=site/dist uv run uvicorn fundamentals.api:create_app --factory --port 8082"
       ],
       "port": 8082
+    },
+    {
+      "name": "fundamentals-local-windows",
+      "runtimeExecutable": "C:\\Program Files\\Git\\bin\\bash.exe",
+      "runtimeArgs": [
+        "-c",
+        "export PATH=\"$HOME/.local/bin:$PATH\" UV_LINK_MODE=copy; cd /c/dev/TechProjects/MarketHub/fundamentals-lab && HUB_URL= FUNDAMENTALS_STATIC_DIR=site/dist uv run uvicorn fundamentals.api:create_app --factory --port 8084"
+      ],
+      "port": 8084
+    },
+    {
+      "name": "peers-local-windows",
+      "runtimeExecutable": "C:\\Program Files\\Git\\bin\\bash.exe",
+      "runtimeArgs": [
+        "-c",
+        "export PATH=\"$HOME/.local/bin:$PATH\" UV_LINK_MODE=copy; cd /c/dev/TechProjects/MarketHub/market-hub-peers-map && HUB_URL= PEERMAP_STATIC_DIR=site/dist uv run uvicorn peermap.api:create_app --factory --port 8085"
+      ],
+      "port": 8085
+    },
+    {
+      "name": "options-local-windows",
+      "runtimeExecutable": "C:\\Program Files\\Git\\bin\\bash.exe",
+      "runtimeArgs": [
+        "-c",
+        "export PATH=\"$HOME/.local/bin:$PATH\" UV_LINK_MODE=copy; cd /c/dev/TechProjects/MarketHub/market-hub-options && HUB_URL= OPTIONSLAB_STATIC_DIR=site/dist uv run uvicorn optionslab.api:create_app --factory --port 8089"
+      ],
+      "port": 8089
+    },
+    {
+      "name": "playground-sample",
+      "runtimeExecutable": "bash",
+      "runtimeArgs": [
+        "-c",
+        "cd market-hub-playground && HUB_URL= PLAYGROUND_SAMPLE=1 PLAYGROUND_SCRIPTED=1 PLAYGROUND_STATIC_DIR=site/dist uv run uvicorn playground.api:create_app --factory --port 8086"
+      ],
+      "port": 8086
+    },
+    {
+      "name": "playground-sample-windows",
+      "runtimeExecutable": "C:\\Program Files\\Git\\bin\\bash.exe",
+      "runtimeArgs": [
+        "-c",
+        "export PATH=\"$HOME/.local/bin:$PATH\" UV_LINK_MODE=copy; cd /c/dev/TechProjects/MarketHub/market-hub-playground && HUB_URL= PLAYGROUND_SAMPLE=1 PLAYGROUND_SCRIPTED=1 PLAYGROUND_STATIC_DIR=site/dist uv run uvicorn playground.api:create_app --factory --port 8086"
+      ],
+      "port": 8086
+    },
+    {
+      "name": "playground-yahoo-windows",
+      "runtimeExecutable": "C:\\Program Files\\Git\\bin\\bash.exe",
+      "runtimeArgs": [
+        "-c",
+        "export PATH=\"$HOME/.local/bin:$PATH\" UV_LINK_MODE=copy; cd /c/dev/TechProjects/MarketHub/market-hub-playground && HUB_URL= PLAYGROUND_SCRIPTED=1 PLAYGROUND_STATIC_DIR=site/dist uv run uvicorn playground.api:create_app --factory --port 8087"
+      ],
+      "port": 8087
     },
     {
       "name": "radar-local",
@@ -79,6 +232,15 @@
       "runtimeArgs": [
         "-c",
         "export PATH=\"$HOME/.local/bin:$PATH\" UV_LINK_MODE=copy; cd market-hub-landing && ANTHROPIC_API_KEY= MARKETHUB_SAMPLE_MARKETS=1 MARKETHUB_SAMPLE_NEWS=1 MARKETHUB_OPEN_REGISTRATION=1 MARKETHUB_INSECURE_COOKIES=1 MARKETHUB_ALLOWED_ORIGINS=http://localhost:8090 MARKETHUB_DATA_DIR=${TMPDIR:-/tmp}/market-hub-mobile-data uv run uvicorn markethub.api:create_app --factory --port 8010"
+      ],
+      "port": 8010
+    },
+    {
+      "name": "mobile-api-live-windows",
+      "runtimeExecutable": "C:\\Program Files\\Git\\bin\\bash.exe",
+      "runtimeArgs": [
+        "-c",
+        "export PATH=\"$HOME/.local/bin:$PATH\" UV_LINK_MODE=copy; cd market-hub-landing && ANTHROPIC_API_KEY= FMP_API_KEY= MARKET_DATA=yahoo MARKETHUB_SAMPLE_NEWS=1 MARKETHUB_OPEN_REGISTRATION=1 MARKETHUB_INSECURE_COOKIES=1 MARKETHUB_ALLOWED_ORIGINS=http://localhost:8090 MARKETHUB_DATA_DIR=${TMPDIR:-/tmp}/market-hub-mobile-data uv run uvicorn markethub.api:create_app --factory --port 8010"
       ],
       "port": 8010
     },
@@ -135,6 +297,33 @@
         "cd market-hub-landing && ANTHROPIC_API_KEY= FMP_API_KEY= MARKET_DATA=yahoo MARKETHUB_SAMPLE_NEWS=1 MARKETHUB_OPEN_REGISTRATION=1 MARKETHUB_INSECURE_COOKIES=1 MARKETHUB_STATIC_DIR=site/dist MARKETHUB_DATA_DIR=${TMPDIR:-/tmp}/market-hub-demo-data uv run uvicorn markethub.api:create_app --factory --port 8088"
       ],
       "port": 8088
+    },
+    {
+      "name": "bots-demo-windows",
+      "runtimeExecutable": "C:\\Program Files\\Git\\bin\\bash.exe",
+      "runtimeArgs": [
+        "-c",
+        "export PATH=\"$HOME/.local/bin:$PATH\" UV_LINK_MODE=copy; cd /c/dev/TechProjects/MarketHub/market-hub-bots && HUB_URL= BOTLEAGUE_SAMPLE=1 BOTLEAGUE_STATIC_DIR=site/dist uv run uvicorn botleague.api:create_app --factory --port 8098"
+      ],
+      "port": 8098
+    },
+    {
+      "name": "bots-check-windows",
+      "runtimeExecutable": "C:\\Program Files\\Git\\bin\\bash.exe",
+      "runtimeArgs": [
+        "-c",
+        "export PATH=\"$HOME/.local/bin:$PATH\" UV_LINK_MODE=copy; cd /c/dev/TechProjects/MarketHub/market-hub-bots && HUB_URL= BOTLEAGUE_SAMPLE=1 BOTLEAGUE_STATIC_DIR=site/dist uv run uvicorn botleague.api:create_app --factory --port 8102"
+      ],
+      "port": 8102
+    },
+    {
+      "name": "bots-change-windows",
+      "runtimeExecutable": "C:\\Program Files\\Git\\bin\\bash.exe",
+      "runtimeArgs": [
+        "-c",
+        "export PATH=\"$HOME/.local/bin:$PATH\" UV_LINK_MODE=copy; cd /c/dev/TechProjects/market-hub-bots-change && HUB_URL= BOTLEAGUE_SAMPLE=1 BOTLEAGUE_STATIC_DIR=site/dist uv run uvicorn botleague.api:create_app --factory --port 8077"
+      ],
+      "port": 8077
     }
   ]
 }
