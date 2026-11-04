@@ -104,5 +104,10 @@ tarea programada no se toca. También se lanza a mano (`/maintenance`).
 ## Convenciones
 
 - Hablar con el usuario en español. Código y comentarios en inglés.
+- **Textos de la web en inglés y en español** (decisión del usuario, 2026-11-04): el inglés en la raíz y
+  el español en `/es/`, con un diccionario por zona escrito a mano y el idioma que elige el lector
+  (cookie `mh_lang` en `.themarkethub.app`, nunca por IP). Así están ya `market-hub-bots` (el piloto) y
+  `market-hub-landing`; el mecanismo, el estilo y el glosario están en `market-hub-bots/docs/i18n.md`,
+  y las demás herramientas lo siguen cuando les toque (hasta entonces su web es solo en inglés).
 - Al terminar una tarea relevante, actualizar "Dónde estamos" en el `docs/HANDOFF.md` del repo que
   se tocó.
