@@ -36,6 +36,12 @@ cambio en lo que responde esa API, o en los colores y formatos de la web del por
 también en la app. Se compila con EAS a mano, y publicar en una tienda es decisión del usuario,
 versión a versión. Sus reglas están en su `CLAUDE.md`.
 
+Y `market-hub-bots-mobile/` (desde el 2026-11-09, repo privado): la app de iPhone de Bot League
+(Expo, React Native), aparte de la de My Hub por decisión del usuario. Tampoco tiene servicio
+propio: entra con el token del portal y habla con la API de Bot League, que lo lee
+(`hubauth.py`). Todo está aún en la rama `bot-league-ios` (también en `market-hub-bots`), sin
+fusionar ni desplegar hasta que el usuario lo decida. Sus reglas están en su `CLAUDE.md`.
+
 Los tres servicios comparten stack y estilo visual (Python 3.12 con `uv`, web Astro con el tema oscuro de
 Market Hub, un contenedor en Cloud Run, todo lanzado a mano desde el `Makefile`), bajo la marca
 Market Hub y el dominio `themarkethub.app` (DNS en Cloudflare, mapeos de dominio de Cloud Run).
