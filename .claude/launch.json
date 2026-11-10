@@ -324,6 +324,15 @@
         "export PATH=\"$HOME/.local/bin:$PATH\" UV_LINK_MODE=copy; cd /c/dev/TechProjects/market-hub-bots-change && HUB_URL= BOTLEAGUE_SAMPLE=1 BOTLEAGUE_STATIC_DIR=site/dist uv run uvicorn botleague.api:create_app --factory --port 8077"
       ],
       "port": 8077
+    },
+    {
+      "name": "bots-demo",
+      "runtimeExecutable": "bash",
+      "runtimeArgs": [
+        "-c",
+        "cd market-hub-bots && HUB_URL= BOTLEAGUE_SAMPLE=1 BOTLEAGUE_STATIC_DIR=site/dist uv run uvicorn botleague.api:create_app --factory --port 8098"
+      ],
+      "port": 8098
     }
   ]
 }
