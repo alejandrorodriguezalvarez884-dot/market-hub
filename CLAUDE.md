@@ -21,7 +21,9 @@ más, y sus reglas (opinar sí, aconsejar no; los hechos son de las fuentes) est
 
 Y `the-market-hub-media/`: el canal de YouTube de Market Hub y, desde el 2026-11-02, los **reels
 de Instagram en español** (`the_market_hub_app`): dos diarios automáticos con la apertura y el
-cierre de Wall Street, y dos líneas a demanda, de reflexión y didácticos, que el usuario pide con
+cierre de Wall Street, y desde el 2026-11-12 tres líneas programadas que eligen su tema sin repetir
+(Aprende lunes, miércoles y viernes a las 19:30; Lee el gráfico de martes a jueves a las 13:00; A
+fondo martes y jueves a las 19:30; skill `scheduled-reel`), que el usuario también pide a mano con
 un tema. Todo en `the-market-hub-media/docs/reels.md`. Cada vídeo es una carpeta (brief,
 guion, un dibujo por escena, miniatura) y se hace con tres skills, `analyze-idea`, `make-video` y
 `publish-video`, a partir de los temas que da el usuario. Tampoco tiene servicio ni web: el
@@ -103,7 +105,8 @@ tarea programada no se toca. También se lanza a mano (`/maintenance`).
   los posts automáticos de `the-market-hub-media` (su skill `autopost`: cinco posts al día en X,
   sin enlace, de lunes a viernes), que pidió el 2026-10-21; y los reels diarios de Instagram con la
   apertura y el cierre de Wall Street (skill `daily-reel`, que sustituyen a los carruseles de
-  `autopost`), que pidió el 2026-11-02 (`the-market-hub-media/docs/reels.md`): tareas programadas
+  `autopost`), que pidió el 2026-11-02, y los de Aprende, Lee el gráfico y A fondo (skill
+  `scheduled-reel`), que pidió el 2026-11-12 (`the-market-hub-media/docs/reels.md`): tareas programadas
   de Claude, no un servicio propio. Otra cosa programada se le pregunta antes.
 - **Los resultados nulos se reportan tal cual.**
 
